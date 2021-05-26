@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest\EditUserRequest;
 use App\Http\Requests\UsersRequests\StoreUserRequest;
+use App\Models\Role;
 use App\Models\User;
 use Cassandra\Session;
 use Illuminate\Http\Request;
@@ -17,10 +18,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(15);
-
         return view('admin.users.index', [
-            'users' => User::withoutTrashed()->paginate(15)
+            'users' => User::with('role')->withoutTrashed()->paginate(15),
         ]);
     }
 
@@ -31,7 +30,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.users.create', [
+            'roles' => Role::all(),
+        ]);
     }
 
     /**

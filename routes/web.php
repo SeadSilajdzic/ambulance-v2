@@ -30,5 +30,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/users/trash/{id}', [UsersController::class, 'trash'])->name('users.trash');
     Route::get('/users/trashed/', [UsersController::class, 'trashedUsers'])->name('users.trashed');
     Route::resource('/users', UsersController::class);
+
+
 });
 

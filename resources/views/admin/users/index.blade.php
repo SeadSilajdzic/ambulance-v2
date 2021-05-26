@@ -26,7 +26,7 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->username }}</td>
-                        <td>Role</td>
+                        <td>{{ $user->role->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at->toFormattedDateString() }}</td>
                         <td><a href="{{ route('users.show', $user->id) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a></td>
