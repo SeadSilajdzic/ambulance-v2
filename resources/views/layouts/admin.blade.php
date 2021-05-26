@@ -20,6 +20,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- JSGrid -->
     <link rel="stylesheet" href="{{ asset('adminAssets/plugins/jsgrid/jsgrid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminAssets/plugins/jsgrid/jsgrid-theme.min.css') }}">
+    {{--SweetAlert--}}
+    <link rel="stylesheet" href="{{ asset('adminAssets/plugins/sweetalert2.min.css') }}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -226,10 +228,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{ route('users.index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>
                                                 List of users
+                                            </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('users.create') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                                Add new user
+                                            </p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('users.trashed') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                                Trashed users
                                             </p>
                                         </a>
                                     </li>
@@ -297,7 +317,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper px-3">
         @yield('content')
     </div>
     <!-- /.content-wrapper -->
@@ -323,5 +343,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('adminAssets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminAssets/dist/js/adminlte.min.js') }}"></script>
+{{--SweetAlert--}}
+<script src="{{ asset('adminAssets/plugins/sweetalert2.all.min.js') }}"></script>
+
 </body>
 </html>

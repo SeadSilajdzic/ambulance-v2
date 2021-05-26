@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('/admin', AdminController::class);
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('/admin', AdminController::class);
+
+    Route::get('/users/restore/{id}', [UsersController::class, 'restore'])->name('users.restore');
+    Route::get('/users/trash/{id}', [UsersController::class, 'trash'])->name('users.trash');
+    Route::get('/users/trashed/', [UsersController::class, 'trashedUsers'])->name('users.trashed');
+    Route::resource('/users', UsersController::class);
+});
+
