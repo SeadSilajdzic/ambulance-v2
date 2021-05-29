@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/admin', AdminController::class);
 
     Route::get('/users/restore/{id}', [UsersController::class, 'restore'])->name('users.restore');
-    Route::get('/users/trash/{id}', [UsersController::class, 'trash'])->name('users.trash');
+    Route::get('/users/trash/{user}', [UsersController::class, 'trash'])->name('users.trash');
     Route::get('/users/trashed/', [UsersController::class, 'trashedUsers'])->name('users.trashed');
     Route::resource('/users', UsersController::class);
 

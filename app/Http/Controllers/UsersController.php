@@ -18,6 +18,8 @@ class UsersController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', User::class);
+
         return view('admin.users.index', [
             'users' => User::with('role')->withoutTrashed()->paginate(15),
         ]);
@@ -30,6 +32,8 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
+
         return view('admin.users.create', [
             'roles' => Role::all(),
         ]);
@@ -43,11 +47,14 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('create', User::class);
+
         User::create([
            'name' => $request->name,
            'email' => $request->email,
            'username' => $request->username,
            'password' => bcrypt($request->password),
+            'role_id' => $request->role_id,
         ]);
 
         session()->flash('success', 'User has been created successfully!');
@@ -62,6 +69,8 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('viewAny', $user);
+
         return view('admin.users.show', [
             'user' => $user
         ]);
@@ -75,6 +84,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('edit', $user);
+
         return view('admin.users.edit', [
             'user' => $user
         ]);
@@ -89,9 +100,12 @@ class UsersController extends Controller
      */
     public function update(EditUserRequest $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
+        $user->role_id = $request->role_id;
         $user->save();
 
         session()->flash('success', 'Users info has been updated!');
@@ -106,6 +120,8 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('forceDelete', $user);
+
         $user->forceDelete();
 
         session()->flash('deleted', 'User has been deleted!');
@@ -119,9 +135,9 @@ class UsersController extends Controller
         ]);
     }
 
-    public function trash($id)
+    public function trash(User $user)
     {
-        $user = User::where('id', $id)->first();
+        $this->authorize('delete', $user);
         $user->delete();
 
         session()->flash('warning', 'User has been trashed!');
@@ -130,10 +146,16 @@ class UsersController extends Controller
 
     public function restore($id)
     {
-        $user = User::withTrashed()->where('id', $id)->first();
+        $user = User::onlyTrashed()->where('id', $id)->first();
         $user->restore();
 
         session()->flash('success', 'User has been restored!');
-        return redirect()->route('users.index');
+
+        if(count(User::onlyTrashed()->get()) > 0)
+        {
+            return redirect()->route('users.trashed');
+        } else {
+            return redirect()->route('users.index');
+        }
     }
 }

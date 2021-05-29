@@ -24,7 +24,7 @@
 
 
 <h2>The idea on how this application should work</h2>
-1. Patients are able to send appointment request over fronted form
+1. Patients are able to send appointment request over frontend form
 2. Reception receives appointment request and approves it or reject
     
     2.1 If appointment is approved user will get mail that appointment is accepted with all the information related to appointment (date & doctor + auto generated password and username)
@@ -38,11 +38,17 @@
  
  <h2>Possible systems</h2>
  1. Roles & Permissions
+ 
  2. Appointment request
+ 
  3. Reception system
+ 
  4. Email notifications
+ 
  5. E-cartons (something like users profile just in this case for health appointment history)
+
  6. Departments + different types of doctors
+ 
  etc.
  
  This is not final version of the product. There will be some application updates with new features like AJAX requests with Laravel Livewire etc.

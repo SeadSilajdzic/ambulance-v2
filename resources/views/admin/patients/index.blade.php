@@ -4,7 +4,7 @@
 
     @include('includes.sessions')
 
-    <small><b>Trashed users count: {{ $users->count() }}</b></small>
+    <small><b>Users count: {{ $users->count() }}</b></small>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -13,10 +13,10 @@
             <th>Username</th>
             <th>Role</th>
             <th>Email</th>
-            <th>Trashed</th>
+            <th>Created</th>
             <th>View</th>
-            <th>Restore</th>
-            <th>Delete</th>
+            <th>Edit</th>
+            <th>Trash</th>
         </tr>
         </thead>
         <tbody>
@@ -28,19 +28,20 @@
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->role->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->deleted_at->toFormattedDateString() }}</td>
+                    <td>{{ $user->created_at->toFormattedDateString() }}</td>
                     <td><a href="{{ route('users.show', $user) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a></td>
 
-                    <td>
-                        <form action="{{ route('users.restore', $user->id) }}" method="get">
-                            @csrf
+                    @can('update', $user)
+                        <td><a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pen"></i></a></td>
+                    @endcan
 
-                            <button type="submit" class="btn btn-success btn-sm">Restore</button>
-                        </form>
-                    </td>
-
-                    <td><a href="{{ route('users.destroy', $user) }}" type="button" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i></a></td>
-
+                    @can('delete', $user)
+                        @if(auth()->user()->id != $user->id && auth()->user()->role_id == 1)
+                            <td><a href="{{ route('users.trash', $user) }}" type="button" class="btn btn-sm btn-warning"><i class="fas fa-trash"></i></a></td>
+                        @else
+                            <td>Your account</td>
+                        @endif
+                    @endcan
                 </tr>
             @endforeach
         @else

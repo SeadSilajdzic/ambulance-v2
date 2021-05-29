@@ -27,6 +27,7 @@ class EditUserRequest extends FormRequest
             'name' => 'string|max:40',
             'email' => 'email|max:255',
             'username' => 'string|max:20',
+            'role_id' => 'string',
         ];
     }
 }

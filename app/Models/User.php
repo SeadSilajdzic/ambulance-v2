@@ -20,6 +20,7 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use SoftDeletes;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +31,7 @@ class User extends Authenticatable
         'email',
         'password',
         'username',
+        'role_id'
     ];
 
     /**
