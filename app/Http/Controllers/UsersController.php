@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest\EditUserRequest;
-use App\Http\Requests\UsersRequests\StoreUserRequest;
+use App\Http\Requests\UsersRequest\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
-use Cassandra\Session;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -18,10 +17,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', User::class);
-
         return view('admin.users.index', [
-            'users' => User::with('role')->withoutTrashed()->paginate(15),
+            'users' => User::orderBy('role_id', 'ASC')->orderBy('created_at')->with('role')->withoutTrashed()->paginate(15),
         ]);
     }
 
@@ -32,10 +29,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', User::class);
-
         return view('admin.users.create', [
-            'roles' => Role::all(),
+            'roles' => Role::where('id', '!=', 3)->get(),
         ]);
     }
 
@@ -47,8 +42,6 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $this->authorize('create', User::class);
-
         User::create([
            'name' => $request->name,
            'email' => $request->email,
@@ -69,8 +62,6 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        $this->authorize('viewAny', $user);
-
         return view('admin.users.show', [
             'user' => $user
         ]);
@@ -84,8 +75,6 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('edit', $user);
-
         return view('admin.users.edit', [
             'user' => $user
         ]);
@@ -100,8 +89,6 @@ class UsersController extends Controller
      */
     public function update(EditUserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
-
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
@@ -120,8 +107,6 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('forceDelete', $user);
-
         $user->forceDelete();
 
         session()->flash('deleted', 'User has been deleted!');
@@ -137,7 +122,6 @@ class UsersController extends Controller
 
     public function trash(User $user)
     {
-        $this->authorize('delete', $user);
         $user->delete();
 
         session()->flash('warning', 'User has been trashed!');

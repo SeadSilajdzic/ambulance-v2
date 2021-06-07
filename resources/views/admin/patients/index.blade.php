@@ -4,44 +4,32 @@
 
     @include('includes.sessions')
 
-    <small><b>Users count: {{ $users->count() }}</b></small>
+    <small><b>Patients count: {{ $patients->count() }}</b></small>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Username</th>
-            <th>Role</th>
             <th>Email</th>
             <th>Created</th>
+            <th title="Electronic Medical Record">EMR</th>
             <th>View</th>
             <th>Edit</th>
             <th>Trash</th>
         </tr>
         </thead>
         <tbody>
-        @if($users)
-            @foreach($users as $user)
+        @if($patients)
+            @foreach($patients as $patient)
                 <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->username }}</td>
-                    <td>{{ $user->role->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->created_at->toFormattedDateString() }}</td>
-                    <td><a href="{{ route('users.show', $user) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a></td>
-
-                    @can('update', $user)
-                        <td><a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pen"></i></a></td>
-                    @endcan
-
-                    @can('delete', $user)
-                        @if(auth()->user()->id != $user->id && auth()->user()->role_id == 1)
-                            <td><a href="{{ route('users.trash', $user) }}" type="button" class="btn btn-sm btn-warning"><i class="fas fa-trash"></i></a></td>
-                        @else
-                            <td>Your account</td>
-                        @endif
-                    @endcan
+                    <td>{{ $patient->user->name }}</td>
+                    <td>{{ $patient->user->username }}</td>
+                    <td>{{ $patient->user->email }}</td>
+                    <td>{{ $patient->user->created_at->toFormattedDateString() }}</td>
+                    <td><a href="#" type="button" class="btn btn-sm btn-primary"><i class="fas fa-history"></i></a></td>
+                    <td><a href="{{ route('patients.show', $patient) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a></td>
+                    <td><a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pen"></i></a></td>
+                    <td><a href="{{ route('patients.index', $patient) }}" type="button" class="btn btn-sm btn-warning"><i class="fas fa-trash"></i></a></td>
                 </tr>
             @endforeach
         @else

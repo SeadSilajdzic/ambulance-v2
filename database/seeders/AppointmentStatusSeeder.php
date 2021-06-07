@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RoleSeeder extends Seeder
+class AppointmentStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,15 +14,15 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->insert([
-           [
-               'name' => 'Admin'
-           ],
+        DB::table('appointment_statuses')->insert([
             [
-                'name' => 'Doctor'
+                'name' => 'Not performed'
             ],
             [
-                'name' => 'Patient'
+                'name' => 'In progress'
+            ],
+            [
+                'name' => 'Done'
             ]
         ]);
     }

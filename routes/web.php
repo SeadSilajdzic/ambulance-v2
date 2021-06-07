@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,13 +25,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['middleware' => 'auth'], function() {
+    //Admin controller
     Route::resource('/admin', AdminController::class);
 
+    //Users controller
     Route::get('/users/restore/{id}', [UsersController::class, 'restore'])->name('users.restore');
     Route::get('/users/trash/{user}', [UsersController::class, 'trash'])->name('users.trash');
     Route::get('/users/trashed/', [UsersController::class, 'trashedUsers'])->name('users.trashed');
     Route::resource('/users', UsersController::class);
 
+    //Patient controller
+    Route::resource('/patients', PatientsController::class);
 
 });
 
