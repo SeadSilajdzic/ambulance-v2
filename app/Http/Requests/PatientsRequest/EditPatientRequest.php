@@ -13,7 +13,7 @@ class EditPatientRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class EditPatientRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'blood_type' => 'string',
+            'birth' => 'string',
+            'alergies' => 'string',
+            'special_note' => 'string|max:1200'
         ];
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PatientsRequest\EditPatientRequest;
 use App\Http\Requests\PatientsRequest\StorePatientRequest;
-use App\Models\AppointmentStatus;
+use App\Http\Requests\UsersRequest\EditUserRequest;
 use App\Models\Patient;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class PatientsController extends Controller
 {
@@ -73,7 +73,6 @@ class PatientsController extends Controller
     public function show(Patient $patient)
     {
         $patient->load('user');
-//        dd($patient->user->name);
         return view('admin.patients.show', [
             'patient' => $patient
         ]);
@@ -85,10 +84,11 @@ class PatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Patient $patient)
     {
-        return view('admin.users.edit', [
-            'user' => $user
+        $patient->load('user');
+        return view('admin.patients.edit', [
+            'patient' => $patient
         ]);
     }
 
@@ -99,59 +99,28 @@ class PatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EditUserRequest $request, User $user)
+    public function update(EditPatientRequest $request, Patient $patient, EditUserRequest $userRequest)
     {
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->username = $request->username;
-        $user->role_id = $request->role_id;
+        $user = User::where('id', $patient->user_id)->firstOrFail();
+
+        $user->name = $userRequest->name;
+        $user->email = $userRequest->email;
+        $user->username = $userRequest->username;
+
+        if($userRequest->input('password'))
+        {
+            $user->password = bcrypt($userRequest->password);
+        }
+
         $user->save();
 
-        session()->flash('success', 'Users info has been updated!');
-        return redirect()->route('users.index');
-    }
+        $patient->blood_type = $request->blood_type;
+        $patient->alergies = $request->alergies;
+        $patient->special_note = $request->special_note;
+        $patient->birth = $request->birth;
+        $patient->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        $user->forceDelete();
-
-        session()->flash('deleted', 'User has been deleted!');
-        return redirect()->route('users.index');
-    }
-
-    public function trashedUsers()
-    {
-        return view('admin.users.trashed', [
-            'users' => User::onlyTrashed()->get()
-        ]);
-    }
-
-    public function trash(User $user)
-    {
-        $user->delete();
-
-        session()->flash('warning', 'User has been trashed!');
-        return redirect()->route('users.index');
-    }
-
-    public function restore($id)
-    {
-        $user = User::onlyTrashed()->where('id', $id)->first();
-        $user->restore();
-
-        session()->flash('success', 'User has been restored!');
-
-        if(count(User::onlyTrashed()->get()) > 0)
-        {
-            return redirect()->route('users.trashed');
-        } else {
-            return redirect()->route('users.index');
-        }
+        session()->flash('success', 'Patients info has been updated!');
+        return redirect()->route('patients.index');
     }
 }
