@@ -15,7 +15,7 @@ class  Patient extends Model
         'blood_type',
         'birth',
         'alergies',
-        'special_note'
+        'special_note',
     ];
 
     public function user()
@@ -23,8 +23,4 @@ class  Patient extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function appointmentStatuses()
-    {
-        return $this->hasMany(AppointmentStatus::class);
-    }
 }

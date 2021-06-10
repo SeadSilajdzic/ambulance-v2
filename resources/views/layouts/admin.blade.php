@@ -287,6 +287,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </ul>
                             </li>
 
+                                <!--Appointments CRUD-->
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-hospital-user"></i>
+                                        <p>
+                                            Appointments
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('appointments.index') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>
+                                                    List of appointments
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('appointments.create') }}" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>
+                                                    Add new appointment
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                             <!--Doctors CRUD-->
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">

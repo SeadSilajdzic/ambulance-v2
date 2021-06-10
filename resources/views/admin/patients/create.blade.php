@@ -24,10 +24,9 @@
             </div>
 
             <div class="form-group">
-                <label for="birth">Age</label>
-                <input type="text" name="birth" class="form-control" value="{{ old('birth') }}">
+                <label for="birth">Birth</label>
+                <input type="date" max="{{ $maxDate }}" name="birth" class="form-control" value="{{ old('birth') }}">
             </div>
-
 
             <div class="form-group">
                 <label for="email">Email</label>

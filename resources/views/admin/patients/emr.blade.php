@@ -4,11 +4,10 @@
 
     @include('includes.sessions')
 
-    <small><b>Patients count: {{ $patients->count() }}</b></small>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Name</th>
+            <th>{{ Sead }}</th>
             <th>Username</th>
             <th>Email</th>
             <th>Created</th>

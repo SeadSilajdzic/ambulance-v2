@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PatientsRequest\EditPatientRequest;
 use App\Http\Requests\PatientsRequest\StorePatientRequest;
 use App\Http\Requests\UsersRequest\EditUserRequest;
+use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
+use function Symfony\Component\String\s;
 
 class PatientsController extends Controller
 {
@@ -32,6 +35,7 @@ class PatientsController extends Controller
     {
         return view('admin.patients.create', [
             'roles' => Role::where('id', '==', 3)->get(),
+            'maxDate' => Carbon::today()->format('Y-m-d'),
         ]);
     }
 
@@ -60,7 +64,7 @@ class PatientsController extends Controller
         ]);
 
 
-        session()->flash('success', 'Patient has been created successfully!');
+        session()->flash('toast_success', 'Patient has been created successfully!');
         return redirect()->route('patients.index');
     }
 
@@ -122,5 +126,13 @@ class PatientsController extends Controller
 
         session()->flash('success', 'Patients info has been updated!');
         return redirect()->route('patients.index');
+    }
+
+    public function emr(Appointment $appointment)
+    {
+
+        return view('admin.patients.emr', [
+            'appointment' => $appointment
+        ]);
     }
 }

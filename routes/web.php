@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppointmentsController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/users', UsersController::class);
 
     //Patient controller
+    Route::get('/patients/emr/{appointment}', [PatientsController::class, 'emr'])->name('patients.emr');
     Route::resource('/patients', PatientsController::class);
+
+    //Appointment controller
+    Route::resource('/appointments', AppointmentsController::class);
 
 });
 

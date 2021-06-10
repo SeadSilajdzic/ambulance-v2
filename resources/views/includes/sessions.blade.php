@@ -1,5 +1,5 @@
-@if(session()->has('success'))
-    {{ session()->get('success') }}
+@if(session()->has('toast_success'))
+    {{ session()->get('toast_success') }}
 @endif
 
 @if(session()->has('error'))

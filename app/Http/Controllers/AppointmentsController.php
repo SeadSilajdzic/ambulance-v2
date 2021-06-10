@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AppointmentsRequest\StoreAppointmentRequest;
+use App\Models\Appointment;
+use App\Models\Patient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AppointmentsController extends Controller
@@ -13,7 +17,9 @@ class AppointmentsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.appointments.index', [
+            'appointments' => Appointment::with('users')->paginate(15)
+        ]);
     }
 
     /**
@@ -23,7 +29,10 @@ class AppointmentsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.appointments.create', [
+            'patients' => Patient::with('user')->get(),
+            'minDate' => Carbon::tomorrow()->format('Y-m-d')
+        ]);
     }
 
     /**
@@ -32,9 +41,20 @@ class AppointmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAppointmentRequest $request)
     {
-        //
+        $appointment = Appointment::create([
+           'appointment_title' => $request->appointment_title,
+            'diagnosis' => $request->diagnosis,
+            'appointment_special_note' => $request->appointment_special_note,
+            'appointment_statuses_id' => 1,
+            'appointment_date' => $request->appointment_date,
+        ]);
+
+        $appointment->users()->attach($request->patient_id);
+
+        session()->flash('success', 'Appointment has been created successfully!');
+        return redirect()->route('appointments.index');
     }
 
     /**
