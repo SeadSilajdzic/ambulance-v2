@@ -128,11 +128,4 @@ class PatientsController extends Controller
         return redirect()->route('patients.index');
     }
 
-    public function emr(Appointment $appointment)
-    {
-
-        return view('admin.patients.emr', [
-            'appointment' => $appointment
-        ]);
-    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AppointmentsRequest\StoreAppointmentRequest;
 use App\Models\Appointment;
 use App\Models\Patient;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -55,6 +56,14 @@ class AppointmentsController extends Controller
 
         session()->flash('success', 'Appointment has been created successfully!');
         return redirect()->route('appointments.index');
+    }
+
+    public function emr($id)
+    {
+        $user = User::with('appointments')->where('id', $id)->first();
+        return view('admin.patients.emr', [
+            'user' => $user
+        ]);
     }
 
     /**

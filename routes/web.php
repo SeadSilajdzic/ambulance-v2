@@ -36,10 +36,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/users', UsersController::class);
 
     //Patient controller
-    Route::get('/patients/emr/{appointment}', [PatientsController::class, 'emr'])->name('patients.emr');
     Route::resource('/patients', PatientsController::class);
 
     //Appointment controller
+    Route::get('/emr/{id}', [AppointmentsController::class, 'emr'])->name('appointments.emr');
     Route::resource('/appointments', AppointmentsController::class);
 
 });
