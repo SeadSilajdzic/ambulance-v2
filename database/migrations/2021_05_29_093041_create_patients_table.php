@@ -15,11 +15,11 @@ class CreatePatientsTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('blood_type');
+            $table->string('blood_type')->nullable();
             $table->string('birth');
-            $table->string('alergies');
-            $table->string('special_note', 1500);
-            $table->foreignId('user_id')->constrained();
+            $table->string('alergies')->nullable();
+            $table->string('special_note', 2000)->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

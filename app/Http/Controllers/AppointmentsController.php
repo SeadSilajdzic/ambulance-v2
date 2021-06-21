@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AppointmentsRequest\StoreAppointmentRequest;
 use App\Models\Appointment;
+use App\Models\AppointmentStatus;
 use App\Models\Patient;
 use App\Models\User;
 use Carbon\Carbon;
@@ -19,7 +20,11 @@ class AppointmentsController extends Controller
     public function index()
     {
         return view('admin.appointments.index', [
-            'appointments' => Appointment::with('users')->paginate(15)
+            'appointments' => Appointment::with('users')
+                ->where('appointment_title', '!=', NULL)
+                ->where('appointment_special_note', '!=', NULL)
+                ->where('appointment_date', '!=', NULL)
+                ->paginate(15)
         ]);
     }
 
@@ -39,13 +44,13 @@ class AppointmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreAppointmentRequest $request)
     {
         $appointment = Appointment::create([
-           'appointment_title' => $request->appointment_title,
+            'appointment_title' => $request->appointment_title,
             'diagnosis' => $request->diagnosis,
             'appointment_special_note' => $request->appointment_special_note,
             'appointment_statuses_id' => 1,
@@ -60,16 +65,16 @@ class AppointmentsController extends Controller
 
     public function emr($id)
     {
-        $user = User::with('appointments')->where('id', $id)->first();
+        $user = User::withoutTrashed()->with(['appointments', 'appointments.appointmentStatus'])->where('id', $id)->firstOrFail();
         return view('admin.patients.emr', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -80,7 +85,7 @@ class AppointmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -91,8 +96,8 @@ class AppointmentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -103,7 +108,7 @@ class AppointmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

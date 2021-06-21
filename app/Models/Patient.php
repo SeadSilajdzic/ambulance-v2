@@ -10,6 +10,8 @@ class  Patient extends Model
 {
     use HasFactory;
 
+    protected $dates = ['birth'];
+
     protected $fillable = [
         'user_id',
         'blood_type',

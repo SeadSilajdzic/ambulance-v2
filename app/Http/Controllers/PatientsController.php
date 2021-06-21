@@ -22,7 +22,7 @@ class PatientsController extends Controller
     public function index()
     {
         return view('admin.patients.index', [
-            'patients' => Patient::with('user')->paginate(15),
+            'patients' => User::withoutTrashed()->where('role_id', 3)->with('patient')->get(),
         ]);
     }
 

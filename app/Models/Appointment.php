@@ -10,7 +10,7 @@ class Appointment extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'appointment_date'];
 
     protected $fillable = [
         'appointment_title',
@@ -28,5 +28,10 @@ class Appointment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function appointmentStatus()
+    {
+        return $this->belongsTo(AppointmentStatus::class,'appointment_statuses_id','id');
     }
 }

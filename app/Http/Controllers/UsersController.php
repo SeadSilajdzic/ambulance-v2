@@ -62,8 +62,9 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        $user->load('appointments');
         return view('admin.users.show', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
