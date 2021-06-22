@@ -18,6 +18,7 @@ class Appointment extends Model
         'appointment_special_note',
         'appointment_statuses_id',
         'appointment_date',
+        'appointment_approved'
     ];
 
     public function users()

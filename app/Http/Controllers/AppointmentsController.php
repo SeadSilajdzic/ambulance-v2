@@ -24,6 +24,7 @@ class AppointmentsController extends Controller
                 ->where('appointment_title', '!=', NULL)
                 ->where('appointment_special_note', '!=', NULL)
                 ->where('appointment_date', '!=', NULL)
+                ->where('appointment_approved', 1)
                 ->paginate(15)
         ]);
     }
@@ -55,6 +56,7 @@ class AppointmentsController extends Controller
             'appointment_special_note' => $request->appointment_special_note,
             'appointment_statuses_id' => 1,
             'appointment_date' => $request->appointment_date,
+            'appointment_approved' => 1
         ]);
 
         $appointment->users()->attach($request->patient_id);

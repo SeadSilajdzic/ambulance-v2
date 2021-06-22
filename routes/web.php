@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointmentsController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\ReceptionController;
 use App\Http\Controllers\RequestedAppointmentController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -44,5 +45,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/emr/{id}', [AppointmentsController::class, 'emr'])->name('appointments.emr');
     Route::resource('/appointments', AppointmentsController::class);
 
+    //Reception controller
+    Route::get('/reception/approve/{appointment}', [ReceptionController::class, 'appointment_approve'])->name('reception.approve');
+    Route::get('/reception/{appointment}/edit', [ReceptionController::class, 'edit'])->name('reception.edit');
+    Route::put('/reception/{appointment}', [ReceptionController::class, 'update'])->name('reception.update');
+    Route::get('/reception', [ReceptionController::class, 'index'])->name('reception.index');
 });
 
