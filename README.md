@@ -21,46 +21,28 @@
 <ul>
     <li>List of all appointments + some crud options & clean overview</li>
 </ul>
-
-
-<h2>The idea on how this application should work</h2>
-1. Patients are able to send appointment request over frontend form
-2. Reception receives appointment request and approves it or reject
-    
-    2.1 If appointment is approved user will get mail that appointment is accepted with all the information related to appointment (date & doctor + auto generated password and username)
-    
-    2.1.1 Once user is approved he will stay in base for good because of future appointments or if he needs some quick information regarding his health appointment history
-    
-    2.3 If user is rejected he will get email why is rejected
- 
- 3. After user gets accepted he gets patient status and one of doctors will be able to take his case
  
  
  <h2>Possible systems</h2>
- 1. Roles & Permissions 
- 
- 2. Appointment request
- 
- 3. Reception system
- 
- 4. Email notifications
- 
- 5. E-cartons (something like users profile just in this case for health appointment history)
-
- 6. Departments + different types of doctors
- 
+ <ol>
+    <li>Roles & Permissions</li>
+    <li>Appointment request</li>
+    <li>Reception system</li>
+    <li>Email notifications</li>
+    <li>E-cartons (something like users profile just in this case for health appointment history)</li>
+    <li>Departments + different types of doctors</li>
+ </ol>
 
 
 
-
-<h2>Future possible updates</h2>
+<h2>Future updates</h2>
 <ul>
-	<li>Live chat with Reception (as support in any time)</li>
-	<li>AJAX requests in forms</li>
-	<li>More protection for better privacy securance</li>
+	<li>Live chat with Reception (as support in any time) - Livewire</li>
+	<li>AJAX requests in forms - Livewire</li>
+	<li>More protection for better privacy securance - Middleware/Policy</li>
 	<li>Emails, notifications etc for patients and doctors (if appointment is close etc.)</li>
 	<li>Translations/Localization</li>
-	<li>Insurance payment system</li>
+	<li>Insurance payment system - Stripe integration</li>
 	<li>Dinamyc system for nurses/doctors/other staff for shifts on calendar, vacations and other requests</li>
 	<li>If the appointment was not performed but Appointed date is not valid anymore - Add anchor where appointment can be ReAppointed <br>-> when we click on reappoint then modal will be opened only with one field - date select and after save send mail to patient so he knows the new appointment date</li>
 	<li>System for new workers to apply for job</li>
@@ -90,3 +72,5 @@
 	<li>Fix sessions design and add them in controllers/views</li>
 	<li>Add errors to forms</li>
 </ul>
+
+Note: <b><u>All systems will be made and implemented from scratch!</u></b>
