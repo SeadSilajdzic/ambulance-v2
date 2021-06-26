@@ -26,7 +26,6 @@
         </div>
     </div>
 
-    @include('includes.sessions')
     {{ $appointments->links() }}
     <table class="table table-hover">
         <thead>

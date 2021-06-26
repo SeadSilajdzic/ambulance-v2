@@ -61,8 +61,7 @@ class AppointmentsController extends Controller
 
         $appointment->users()->attach($request->patient_id);
 
-        session()->flash('success', 'Appointment has been created successfully!');
-        return redirect()->route('appointments.index');
+        return redirect()->route('appointments.index')->withToastSuccess('Appointment has been created');
     }
 
     public function emr($id)

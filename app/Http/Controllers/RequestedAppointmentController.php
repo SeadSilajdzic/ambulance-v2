@@ -68,8 +68,7 @@ class RequestedAppointmentController extends Controller
 
         $appointment->users()->attach($patient->user_id);
 
-        session()->flush('success', 'Appointment request has been sent!');
-        return redirect()->route('index');
+        return redirect()->route('index')->withToastSuccess('Appointment request has been sent!');
     }
 
     /**

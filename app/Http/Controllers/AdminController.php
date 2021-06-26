@@ -18,10 +18,20 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index', [
-            'patients' => Patient::all(),
-            'users' => User::all(),
-            'appointmentRequests' => Appointment::where('appointment_title', NULL)->orWhere('appointment_date', NULL)->orWhere('appointment_approved', 0)->get(),
-            'appointments' => Appointment::all(),
+            'patients' => Patient::all()->count(),
+            'users' => User::all()->count(),
+            'appointments' => Appointment::all()->count(),
+            'appointmentRequests' => Appointment::
+                where('appointment_title', NULL)
+                ->orWhere('appointment_date', NULL)
+                ->orWhere('appointment_approved', 0)
+                ->count(),
+            'appointmentsReadyToWorkOn' => Appointment::
+                where('appointment_title', '!=', NULL)
+                ->where('appointment_special_note', '!=', NULL)
+                ->where('appointment_date', '!=', NULL)
+                ->where('appointment_approved', 1)
+                ->count(),
         ]);
     }
 }

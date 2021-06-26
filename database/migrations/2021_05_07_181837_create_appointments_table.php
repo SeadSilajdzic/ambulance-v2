@@ -18,7 +18,7 @@ class CreateAppointmentsTable extends Migration
             $table->string('appointment_title')->nullable();
             $table->string('diagnosis', 2000)->nullable();
             $table->string('appointment_special_note');
-            $table->foreignId('appointment_statuses_id')->constrained();
+            $table->foreignId('appointment_statuses_id')->constrained()->onDelete('cascade');
             $table->date('appointment_date')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -72,7 +72,7 @@ class ReceptionController extends Controller
         $appointment->appointment_date = $request->appointment_date;
         $appointment->save();
 
-        return redirect()->route('reception.index');
+        return redirect()->route('reception.index')->withToastSuccess('Appointment info has been updated');
     }
 
     public function show(Appointment $appointment)

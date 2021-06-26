@@ -63,9 +63,7 @@ class PatientsController extends Controller
             'special_note' => $request->special_note
         ]);
 
-
-        session()->flash('toast_success', 'Patient has been created successfully!');
-        return redirect()->route('patients.index');
+        return redirect()->route('patients.index')->withToastSuccess('Patient has been created successfully');
     }
 
     /**
@@ -124,8 +122,7 @@ class PatientsController extends Controller
         $patient->birth = $request->birth;
         $patient->save();
 
-        session()->flash('success', 'Patients info has been updated!');
-        return redirect()->route('patients.index');
+        return redirect()->route('patients.index')->withToastSuccess('Patients info has been updated');
     }
 
 }

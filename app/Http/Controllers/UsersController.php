@@ -51,8 +51,7 @@ class UsersController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        session()->flash('success', 'User has been created successfully!');
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withToastSuccess('User has been created successfully!');
     }
 
     /**
@@ -97,8 +96,7 @@ class UsersController extends Controller
         $user->role_id = $request->role_id;
         $user->save();
 
-        session()->flash('success', 'Users info has been updated!');
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withToastInfo('Users info has been updated!');
     }
 
     /**
@@ -111,8 +109,7 @@ class UsersController extends Controller
     {
         $user->forceDelete();
 
-        session()->flash('deleted', 'User has been deleted!');
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withError('User has been deleted!');
     }
 
     public function trashedUsers()
@@ -135,13 +132,11 @@ class UsersController extends Controller
         $user = User::onlyTrashed()->where('id', $id)->first();
         $user->restore();
 
-        session()->flash('success', 'User has been restored!');
-
         if(count(User::onlyTrashed()->get()) > 0)
         {
-            return redirect()->route('users.trashed');
+            return redirect()->route('users.trashed')->withSuccess('User has been restored');
         } else {
-            return redirect()->route('users.index');
+            return redirect()->route('users.index')->withSuccess('User has been restored');
         }
     }
 }

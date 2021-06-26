@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @include('includes.sessions')
-
     <small><b>Users count: {{ $allUsers->count() }}</b></small>
 
     {{ $users->links() }}

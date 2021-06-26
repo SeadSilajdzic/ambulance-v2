@@ -196,144 +196,131 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
 
+                    @if(auth()->user()->role_id == 1)
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Users
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('users.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            List of users
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('users.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Add new user
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('users.trashed') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Trashed users
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+
+                    <!--Patients CRUD-->
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-arrow-alt-circle-right"></i>
+                            <i class="nav-icon fas fa-hospital-user"></i>
                             <p>
-                                Site management
+                                Patients
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-
-                        <!--Users overview-->
-                        <ul class="nav nav-treeview" style="display: none;">
-                            @if(auth()->user()->role_id == 1)
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-user"></i>
-                                        <p>
-                                            Users
-                                            <i class="fas fa-angle-left right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('users.index') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>
-                                                    List of users
-                                                </p>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="{{ route('users.create') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>
-                                                    Add new user
-                                                </p>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="{{ route('users.trashed') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>
-                                                    Trashed users
-                                                </p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            @endif
-
-                            <!--Patients CRUD-->
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-hospital-user"></i>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('patients.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
                                     <p>
-                                        Patients
-                                        <i class="fas fa-angle-left right"></i>
+                                        List of patients
                                     </p>
                                 </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ route('patients.index') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>
-                                                List of patients
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('patients.create') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>
-                                                Add new patient
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
-
-                                <!--Appointments CRUD-->
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-hospital-user"></i>
-                                        <p>
-                                            Appointments
-                                            <i class="fas fa-angle-left right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('appointments.index') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>
-                                                    List of appointments
-                                                </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('appointments.create') }}" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>
-                                                    Add new appointment
-                                                </p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                            <!--Doctors CRUD-->
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-stethoscope"></i>
+                            <li class="nav-item">
+                                <a href="{{ route('patients.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
                                     <p>
-                                        Doctors
-                                        <i class="fas fa-angle-left right"></i>
+                                        Add new patient
                                     </p>
                                 </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>List of doctors</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Add new doctor</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Manage types of doctors</p>
-                                        </a>
-                                    </li>
-                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!--Appointments CRUD-->
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-calendar-alt"></i>
+                            <p>
+                                Appointments
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('appointments.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>
+                                        List of appointments
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('appointments.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>
+                                        Add new appointment
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!--Doctors CRUD-->
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-stethoscope"></i>
+                            <p>
+                                Doctors
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>List of doctors</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add new doctor</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Manage types of doctors</p>
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -374,5 +361,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {{--SweetAlert--}}
 <script src="{{ asset('adminAssets/plugins/sweetalert2.all.min.js') }}"></script>
 
+@include('sweetalert::alert')
 </body>
 </html>

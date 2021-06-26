@@ -297,7 +297,7 @@
                     </div>
                     <div class="form-group">
                         <label for="birth">Birth date</label>
-                        <input type="date" name="birth" value="{{ old('birth') }}" placeholder="Birth" class="form-control">
+                        <input type="date" name="birth" max="{{ $maxDate }}" value="{{ old('birth') }}" placeholder="Birth" class="form-control">
                     </div><div class="form-group">
                         <label for="alergies">Alergies</label>
                         <input type="text" name="alergies" value="{{ old('alergies') }}" placeholder="Alergies (Leave empty if you don't know)" class="form-control">

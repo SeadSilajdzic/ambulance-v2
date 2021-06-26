@@ -186,6 +186,7 @@
 <!-- Template Main JS File -->
 <script src="{{ asset('medicio/assets/js/main.js') }}"></script>
 
+@include('sweetalert::alert')
 </body>
 
 </html>

@@ -2,8 +2,6 @@
 
 @section('content')
 
-    @include('includes.sessions')
-
     <small><b>Appointments count: {{ $appointments->count() }}</b></small>
     <table class="table table-hover">
         <thead>
