@@ -46,6 +46,7 @@ class RequestedAppointmentController extends Controller
             'name' => $request->name,
             'username' => $usernameUsername,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => bcrypt($usernamePassword),
             'role_id' => 3
         ]);

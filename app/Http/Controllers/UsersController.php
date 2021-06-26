@@ -19,6 +19,7 @@ class UsersController extends Controller
     {
         return view('admin.users.index', [
             'users' => User::orderBy('role_id', 'ASC')->orderBy('created_at')->with('role')->withoutTrashed()->paginate(15),
+            'allUsers' => User::all(),
         ]);
     }
 

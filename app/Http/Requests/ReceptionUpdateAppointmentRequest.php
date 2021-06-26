@@ -24,7 +24,7 @@ class ReceptionUpdateAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'appointment_title' => 'required|min:5',
+            'appointment_title' => 'required|min:5|string',
             'appointment_date' => 'required|date'
         ];
     }

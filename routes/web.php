@@ -43,11 +43,13 @@ Route::group(['middleware' => 'auth'], function() {
 
     //Appointment controller
     Route::get('/emr/{id}', [AppointmentsController::class, 'emr'])->name('appointments.emr');
+    Route::get('/emr/{appointment}/patient', [AppointmentsController::class, 'emr_show'])->name('appointments.patient.emr');
     Route::resource('/appointments', AppointmentsController::class);
 
     //Reception controller
     Route::get('/reception/approve/{appointment}', [ReceptionController::class, 'appointment_approve'])->name('reception.approve');
     Route::get('/reception/{appointment}/edit', [ReceptionController::class, 'edit'])->name('reception.edit');
+    Route::get('/reception/{appointment}', [ReceptionController::class, 'show'])->name('reception.show');
     Route::put('/reception/{appointment}', [ReceptionController::class, 'update'])->name('reception.update');
     Route::get('/reception', [ReceptionController::class, 'index'])->name('reception.index');
 });

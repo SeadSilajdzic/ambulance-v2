@@ -190,21 +190,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
 
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-arrow-alt-circle-right"></i>
-                            <p>
-                                Reception management
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
+                        <a href="{{ route('reception.index') }}" class="nav-link">
+                            <i class="far fa-arrow-alt-circle-right nav-icon"></i>
+                            <p>Reception</p>
                         </a>
-                        <ul class="nav nav-treeview" style="display: none;">
-                            <li class="nav-item">
-                                <a href="{{ route('reception.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Appointment requests</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
                     <li class="nav-item has-treeview">

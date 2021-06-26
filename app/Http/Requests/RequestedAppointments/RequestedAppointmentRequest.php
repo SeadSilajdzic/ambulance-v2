@@ -26,7 +26,7 @@ class RequestedAppointmentRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'required|string',
+            'phone' => 'required',
             'note' => 'required|string|max:2000',
             'birth' => 'required|date',
             'alergies' => 'string',

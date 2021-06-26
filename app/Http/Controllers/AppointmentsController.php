@@ -73,6 +73,14 @@ class AppointmentsController extends Controller
         ]);
     }
 
+    public function emr_show(Appointment $appointment)
+    {
+        $appointment->load('users');
+        return view('admin.patients.emr_show', [
+            'appointment' => $appointment
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *

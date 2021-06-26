@@ -4,7 +4,9 @@
 
     @include('includes.sessions')
 
-    <small><b>Users count: {{ $users->count() }}</b></small>
+    <small><b>Users count: {{ $allUsers->count() }}</b></small>
+
+    {{ $users->links() }}
     <table class="table table-hover">
         <thead>
             <tr>
@@ -44,4 +46,5 @@
         </tbody>
     </table>
 
+    {{ $users->links() }}
 @endsection

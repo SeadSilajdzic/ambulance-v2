@@ -20,19 +20,34 @@ class ReceptionController extends Controller
                 ->where('appointment_title', NULL)
                 ->orwhere('appointment_date', NULL)
                 ->orWhere('appointment_approved', 0)
-                ->paginate(15)
+                ->paginate(15),
+            'allAppointments' => Appointment::
+                where('appointment_approved', 1)
+                ->where('appointment_date', '!=', NULL)
+                ->where('appointment_title', '!=', NULL)
+                ->get(),
+            'requestedAppointmentsCount' => Appointment::with('users')
+                ->where('appointment_title', NULL)
+                ->orwhere('appointment_date', NULL)
+                ->orWhere('appointment_approved', 0)
+                ->get(),
         ]);
     }
 
     public function appointment_approve(Appointment $appointment)
     {
-        if ($appointment->appointment_approved == 0) {
-            $appointment->appointment_approved = 1;
-            $appointment->save();
+        if($appointment->appointment_title != NULL || $appointment->appointment_date != NULL)
+        {
+            if ($appointment->appointment_approved == 0) {
+                $appointment->appointment_approved = 1;
+                $appointment->save();
+            } else {
+                $appointment->appointment_approved = 0;
+                $appointment->save();
+            };
         } else {
-            $appointment->appointment_approved = 0;
-            $appointment->save();
-        };
+            abort(404);
+        }
 
         return redirect()->back();
     }
@@ -45,7 +60,7 @@ class ReceptionController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        $appointment->load('user');
+//        $appointment->load('user');
         return view('admin.reception.edit', [
             'appointment' => $appointment
         ]);
@@ -58,5 +73,13 @@ class ReceptionController extends Controller
         $appointment->save();
 
         return redirect()->route('reception.index');
+    }
+
+    public function show(Appointment $appointment)
+    {
+        $appointment->load(['users', 'appointmentStatus']);
+        return view('admin.reception.show', [
+            'appointment' => $appointment
+        ]);
     }
 }
