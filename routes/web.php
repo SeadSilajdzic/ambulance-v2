@@ -36,13 +36,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/users/restore/{id}', [UsersController::class, 'restore'])->name('users.restore');
     Route::get('/users/trash/{user}', [UsersController::class, 'trash'])->name('users.trash');
     Route::get('/users/trashed/', [UsersController::class, 'trashedUsers'])->name('users.trashed');
-    Route::resource('/users', UsersController::class);
+    Route::delete('/users/{slug}/', [UsersController::class, 'destroy'])->name('users.destroy');
+    Route::resource('/users', UsersController::class)->except('destroy');
 
     //Patient controller
     Route::resource('/patients', PatientsController::class);
 
     //Appointment controller
-    Route::get('/emr/{id}', [AppointmentsController::class, 'emr'])->name('appointments.emr');
+    Route::get('/emr/{slug}', [AppointmentsController::class, 'emr'])->name('appointments.emr');
     Route::get('/emr/{appointment}/patient', [AppointmentsController::class, 'emr_show'])->name('appointments.patient.emr');
     Route::resource('/appointments', AppointmentsController::class);
 

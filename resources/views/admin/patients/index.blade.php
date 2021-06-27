@@ -13,7 +13,6 @@
             <th title="Electronic Medical Record">EMR</th>
             <th>View</th>
             <th>Edit</th>
-            <th>Trash</th>
         </tr>
         </thead>
         <tbody>
@@ -24,10 +23,9 @@
                     <td>{{ $patient->username }}</td>
                     <td>{{ $patient->email }}</td>
                     <td>{{ $patient->created_at->toFormattedDateString() }}</td>
-                    <td><a href="{{ route('appointments.emr', ['id' => $patient->id]) }}" type="button" class="btn btn-sm btn-primary"><i class="fas fa-history"></i></a></td>
+                    <td><a href="{{ route('appointments.emr', $patient) }}" type="button" class="btn btn-sm btn-primary"><i class="fas fa-history"></i></a></td>
                     <td><a href="{{ route('patients.show', $patient) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a></td>
                     <td><a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pen"></i></a></td>
-                    <td><a href="{{ route('patients.index', $patient) }}" type="button" class="btn btn-sm btn-warning"><i class="fas fa-trash"></i></a></td>
                 </tr>
             @endforeach
         @else

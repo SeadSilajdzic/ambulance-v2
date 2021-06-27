@@ -27,7 +27,7 @@ class StorePatientRequest extends FormRequest
             'blood_type' => 'string',
             'birth' => 'string',
             'alergies' => 'string',
-            'special_note' => 'string|max:1200'
+            'special_note' => 'string|max:1200',
         ];
     }
 }

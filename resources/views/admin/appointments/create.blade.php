@@ -5,6 +5,8 @@
     <div class="mx-2">
         <h2>Add new user</h2>
 
+        @include('includes.errors')
+
         <form action="{{ route('appointments.store') }}" method="post">
             @csrf
 
@@ -48,5 +50,7 @@
             </div>
         </form>
     </div>
+
+    @include('includes.errors')
 
 @endsection

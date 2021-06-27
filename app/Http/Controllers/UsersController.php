@@ -6,7 +6,7 @@ use App\Http\Requests\UsersRequest\EditUserRequest;
 use App\Http\Requests\UsersRequest\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -43,12 +43,21 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        if(!empty($request->slug))
+        {
+            $slug = $request->slug;
+        } else {
+            $slug = Str::slug($request->name);
+        }
+
         User::create([
            'name' => $request->name,
            'email' => $request->email,
            'username' => $request->username,
            'password' => bcrypt($request->password),
             'role_id' => $request->role_id,
+            'phone' => $request->phone,
+            'slug' => $slug,
         ]);
 
         return redirect()->route('users.index')->withToastSuccess('User has been created successfully!');
@@ -90,10 +99,17 @@ class UsersController extends Controller
      */
     public function update(EditUserRequest $request, User $user)
     {
+        if(!empty($request->slug))
+        {
+            $slug = $request->slug;
+        } else {
+            $slug = Str::slug($request->name);
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
-        $user->role_id = $request->role_id;
+        $user->slug = $slug;
         $user->save();
 
         return redirect()->route('users.index')->withToastInfo('Users info has been updated!');
@@ -105,11 +121,12 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($slug)
     {
+        $user = User::onlyTrashed()->where('slug', $slug)->firstOrFail();
         $user->forceDelete();
 
-        return redirect()->route('users.index')->withError('User has been deleted!');
+        return redirect()->route('users.index')->withToastError('User has been deleted!');
     }
 
     public function trashedUsers()

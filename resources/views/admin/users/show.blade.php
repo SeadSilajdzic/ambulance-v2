@@ -12,7 +12,7 @@
     <div class="row">
         <div class="bg-gradient-success card col-md-6">
             <div class="card-header">
-                <h3>Basic information</h3>
+                <h4>Contact information</h4>
             </div>
             <div class="card-body">
                 <div class="row d-flex flex-column">
@@ -28,9 +28,19 @@
                         <label>Email</label>
                         <p>{{ $user->email }}</p>
                     </div>
+                    @if($user->phone)
+                        <div class="d-flex justify-content-between">
+                            <label>Phone</label>
+                            <p>{{ $user->phone }}</p>
+                        </div>
+                    @endif
                     <div class="d-flex justify-content-between">
                         <label>Role</label>
                         <p>{{ $user->role->name }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <label>Slug</label>
+                        <p>{{ $user->slug }}</p>
                     </div>
                 </div>
             </div>

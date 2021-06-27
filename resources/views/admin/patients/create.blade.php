@@ -5,6 +5,8 @@
     <div class="mx-2">
         <h2>Add new patient</h2>
 
+        @include('includes.errors')
+
         <form action="{{ route('patients.store') }}" method="post">
             @csrf
 
@@ -34,6 +36,11 @@
             </div>
 
             <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" name="phone" class="form-control" value="{{ old('phone') }}">
+            </div>
+
+            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" class="form-control">
             </div>
@@ -49,9 +56,16 @@
             </div>
 
             <div class="form-group">
+                <label for="slug">Slug</label>
+                <input type="text" name="slug" class="form-control" value="{{ old('slug') }}" placeholder="Leave empty to auto generate">
+            </div>
+
+            <div class="form-group">
                 <button type="submit" name="btn_create_patient" class="btn btn-primary">Add new patient</button>
             </div>
         </form>
     </div>
+
+    @include('includes.errors')
 
 @endsection

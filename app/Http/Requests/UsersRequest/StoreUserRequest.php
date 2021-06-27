@@ -28,7 +28,8 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|email|max:125',
             'username' => 'required|string|max:30',
             'password' => 'required|min:8',
-            'role_id' => 'required|string'
+            'role_id' => 'required|string',
+            'phone' => 'required|string',
         ];
     }
 }

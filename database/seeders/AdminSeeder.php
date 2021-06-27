@@ -20,7 +20,9 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('sead1234'),
             'email' => 'sead17@outlook.com',
             'role_id' => 1,
-            'is_staff' => 1
+            'is_staff' => 1,
+            'phone' => '123-456-789',
+            'slug' => 'seadx'
         ]);
     }
 }

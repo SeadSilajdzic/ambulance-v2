@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PatientsRequest\EditPatientRequest;
 use App\Http\Requests\PatientsRequest\StorePatientRequest;
 use App\Http\Requests\UsersRequest\EditUserRequest;
-use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
-use function Symfony\Component\String\s;
+use Illuminate\Support\Str;
 
 class PatientsController extends Controller
 {
@@ -47,12 +46,21 @@ class PatientsController extends Controller
      */
     public function store(StorePatientRequest $request)
     {
+        if($request->slug)
+        {
+            $slug = Str::slug($request->slug);
+        } else {
+            $slug = Str::slug($request->name);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'username' => $request->username,
             'password' => bcrypt($request->password),
             'role_id' => 3,
+            'phone' => $request->phone,
+            'slug' => $slug
         ]);
 
         Patient::create([
@@ -72,9 +80,9 @@ class PatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Patient $patient)
+    public function show(User $patient)
     {
-        $patient->load('user');
+        $patient->load('patient');
         return view('admin.patients.show', [
             'patient' => $patient
         ]);
@@ -86,9 +94,9 @@ class PatientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
+    public function edit(User $patient)
     {
-        $patient->load('user');
+        $patient->load('patient');
         return view('admin.patients.edit', [
             'patient' => $patient
         ]);
@@ -104,10 +112,18 @@ class PatientsController extends Controller
     public function update(EditPatientRequest $request, Patient $patient, EditUserRequest $userRequest)
     {
         $user = User::where('id', $patient->user_id)->firstOrFail();
+        if($userRequest->slug)
+        {
+            $slug = Str::slug($userRequest->slug);
+        } else {
+            $slug = Str::slug($userRequest->name);
+        }
 
         $user->name = $userRequest->name;
         $user->email = $userRequest->email;
         $user->username = $userRequest->username;
+        $user->phone = $userRequest->phone;
+        $user->slug = $slug;
 
         if($userRequest->input('password'))
         {
@@ -122,7 +138,7 @@ class PatientsController extends Controller
         $patient->birth = $request->birth;
         $patient->save();
 
-        return redirect()->route('patients.index')->withToastSuccess('Patients info has been updated');
+        return redirect()->route('patients.index')->withToastInfo('Patients info has been updated');
     }
 
 }

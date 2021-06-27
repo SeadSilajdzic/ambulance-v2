@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\PatientsController;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +19,10 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use SoftDeletes;
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +34,9 @@ class User extends Authenticatable
         'email',
         'password',
         'username',
-        'role_id'
+        'role_id',
+        'phone',
+        'slug'
     ];
 
     /**

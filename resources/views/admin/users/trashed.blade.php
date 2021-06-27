@@ -12,7 +12,6 @@
             <th>Role</th>
             <th>Email</th>
             <th>Trashed</th>
-            <th>View</th>
             <th>Restore</th>
             <th>Delete</th>
         </tr>
@@ -27,7 +26,6 @@
                     <td>{{ $user->role->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->deleted_at->toFormattedDateString() }}</td>
-                    <td><a href="{{ route('users.show', $user) }}" type="button" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a></td>
 
                     <td>
                         <form action="{{ route('users.restore', $user->id) }}" method="get">
@@ -37,7 +35,14 @@
                         </form>
                     </td>
 
-                    <td><a href="{{ route('users.destroy', $user) }}" type="button" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i></a></td>
+                    <td>
+                        <form action="{{ route('users.destroy', $user->slug) }}" method="post">
+                            @csrf
+                            @method('delete')
+
+                            <button type="submit" name="btn_perma_delete_user" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i></button>
+                        </form>
+                    </td>
 
                 </tr>
             @endforeach

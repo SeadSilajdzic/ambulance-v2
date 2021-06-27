@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('includes.errors')
+
     <form action="{{ route('reception.update', $appointment) }}" method="post">
         @csrf
         @method('put')
@@ -20,5 +22,7 @@
             <button type="submit" name="btn_update_appointment_from_reception" class="btn btn-block btn-primary btn-md">Update appointment request</button>
         </div>
     </form>
+
+    @include('includes.errors')
 
 @endsection

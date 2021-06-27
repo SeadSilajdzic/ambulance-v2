@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AppointmentsRequest\StoreAppointmentRequest;
 use App\Models\Appointment;
-use App\Models\AppointmentStatus;
 use App\Models\Patient;
 use App\Models\User;
 use Carbon\Carbon;
@@ -64,9 +63,9 @@ class AppointmentsController extends Controller
         return redirect()->route('appointments.index')->withToastSuccess('Appointment has been created');
     }
 
-    public function emr($id)
+    public function emr($slug)
     {
-        $user = User::withoutTrashed()->with(['appointments', 'appointments.appointmentStatus'])->where('id', $id)->firstOrFail();
+        $user = User::withoutTrashed()->with(['appointments', 'appointments.appointmentStatus'])->where('slug', $slug)->firstOrFail();
         return view('admin.patients.emr', [
             'user' => $user,
         ]);

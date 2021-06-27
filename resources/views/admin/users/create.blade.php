@@ -5,6 +5,8 @@
     <div class="mx-2">
         <h2>Add new user</h2>
 
+        @include('includes.errors')
+
         <form action="{{ route('users.store') }}" method="post">
             @csrf
 
@@ -16,6 +18,11 @@
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" class="form-control" value="{{ old('username') }}">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" name="phone" class="form-control" value="{{ old('phone') }}">
             </div>
 
             <div class="form-group">
@@ -43,5 +50,7 @@
             </div>
         </form>
     </div>
+
+    @include('includes.errors')
 
 @endsection
