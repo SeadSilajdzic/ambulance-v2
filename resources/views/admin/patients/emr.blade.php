@@ -24,31 +24,39 @@
         </thead>
         <tbody>
             @foreach($user->appointments as $appointment)
-                <tr>
-                    <td>{{ $appointment->appointment_title }}</td>
-                    <td>{{ $appointment->appointmentStatus->name }}</td>
+                @if($appointment->appointment_approved)
+                    <tr>
+                        <td>{{ $appointment->appointment_title }}</td>
+                        <td>{{ $appointment->appointmentStatus->name }}</td>
 
-                    @if($appointment->appointment_date)
-                        @if($appointment->appointment_date < Carbon\Carbon::today())
-                            <td class="alert alert-danger d-flex justify-content-between">{{ $appointment->appointment_date->toFormattedDateString() }}
-                                <a href="#" class="btn btn-sm btn-info">ReAppoint</a>
-                            </td>
+                        @if($appointment->appointment_date)
+                            @if($appointment->appointment_date < Carbon\Carbon::today())
+                                <td class="alert alert-danger d-flex justify-content-between">{{ $appointment->appointment_date->toFormattedDateString() }}
+                                    <a href="#" class="btn btn-sm btn-info">ReAppoint</a>
+                                </td>
+                            @else
+                                <td>{{ $appointment->appointment_date->toFormattedDateString() }}</td>
+                            @endif
                         @else
-                            <td>{{ $appointment->appointment_date->toFormattedDateString() }}</td>
+                            <td>There is no date defined</td>
                         @endif
-                    @else
-                        <td>There is no date defined</td>
-                    @endif
 
 
-                    <td>{{ $appointment->created_at->toFormattedDateString() }} ({{ $appointment->created_at->diffForHumans() }})</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></a>
-                    </td>
-                </tr>
+                        <td>{{ $appointment->created_at->toFormattedDateString() }} ({{ $appointment->created_at->diffForHumans() }})</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></a>
+                        </td>
+                    </tr>
+                @else
+                    <tr>
+                        <td>
+                            This patient does not have any approved appointments. Please check it out at the <a href="{{ route('reception.index') }}">reception</a>.
+                        </td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>

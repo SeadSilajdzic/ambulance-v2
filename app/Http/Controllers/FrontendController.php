@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RequestedAppointments\RequestedAppointmentRequest;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
@@ -16,7 +14,7 @@ class FrontendController extends Controller
     public function index()
     {
         return view('welcome', [
-            'maxDate' => Carbon::today()->format('Y-m-d'),
+            'minDate' => Carbon::tomorrow()->format('Y-m-d'),
         ]);
     }
 }

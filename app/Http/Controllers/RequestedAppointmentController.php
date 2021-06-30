@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RequestedAppointmentController extends Controller
 {
@@ -42,13 +43,21 @@ class RequestedAppointmentController extends Controller
         $usernamePassword = strtolower($usernameExplode[0].$usernameExplode[1]); //Take users name, remove space and join firstname and lastname to string
         $usernameUsername = strtolower($usernameExplode[0] . '_' . $usernameExplode[1]); //Take users name, swap space for dash and put lowercase letters
 
+        if(!empty($request->slug))
+        {
+            $slug = $request->slug;
+        } else {
+            $slug = Str::slug($request->name);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'username' => $usernameUsername,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => bcrypt($usernamePassword),
-            'role_id' => 3
+            'role_id' => 3,
+            'slug' => $slug
         ]);
 
         $patient = Patient::create([
